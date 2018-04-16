@@ -1,0 +1,55 @@
+{% extends "homepage.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+{% load l10n %}
+{% load custom_tags %}
+
+
+{% block head_title %} | Agents{% endblock %}
+
+{% block body_base %}
+<main>
+    {% block body_main_content %}
+    <section class="jumbotron reg_page">
+        <div class="container info">
+            <div class="gen_info">Our Valued Agents are ready to help!</div>
+            {% for agent in object_list %}
+            <div class="row listing_outer">
+                <div class="col-md-4">
+                    <span class="listing_left"><img src="{{ agent.agent_image.thumbnail.210x190 }}" class="img-responsive"/></span>
+                </div>
+                <div class="col-md-4 agent_mid">
+                    <div>
+                        <span>
+                            <b>{{ agent.user.get_full_name|cap_all_words }}</b>
+                            <br />{{ agent.phone_number }}<br />{{ agent.user.email }}
+                            <br /><b><a class="agent_standard" href="{{ agent.get_absolute_url }}">More</a></b>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-4 agent_mid">
+                    <div>
+                        <span>
+                            {% if agent.bio %}
+                            <b>"{{ agent.bio|truncatechars:200 }}"</b>
+                            {% endif %}
+                            {% if agent.bio|length >= 200 %}
+                               <br /><b><a class="agent_standard" href="{{ agent.get_absolute_url }}">More</a></b>
+                            {% endif %}
+                        </span>                            
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+                <div class="row listing_outer">
+                <div class="col-sm-12">No listings currently</div></div>
+            {% endfor %}
+
+            {% include "_phone.html" with phone_number=detail.phone_number %}
+        </div>
+    </section>
+    {% endblock %}
+    {% include "_footer.html" %}
+</main>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "site_base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+{% load l10n %}
+
+
+{% block head_title %} | Home{% endblock %}
+
+{% block body_base %}
+<main>
+    {% block body_main_content %}
+    <section class="jumbotron reg_page" style="background: url(site_media/media/{{ detail.image }}) no-repeat center center fixed; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        color: {{ detail.text_color }};
+        margin-bottom: 40px;">
+        <div class="container">
+            {% if detail.alert %}
+               <div class="gen_alert">{{ detail.alert }}</div>
+            {% endif %}           
+            <h3 style="padding-top: 50px;">{{ detail.bio }}</h4>
+                <div class="caption"><span>{{ detail }}</span></div>
+        </div>
+    </section>
+    <section>
+        <div class="container info">
+            <div class="gen_info">Featured Listings</div>
+            {% include "_listings.html" %}
+            {% include "_phone.html" with phone_number=detail.phone_number %}
+        </div>
+    </section>
+    {% endblock %}
+    {% include "_footer.html" %}
+</main>
+{% endblock %}

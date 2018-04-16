@@ -1,0 +1,38 @@
+{% load i18n %}
+{% load account_tags %}
+
+
+<ul class="navbar-nav">
+    <li class="nav-item nav_elements first_nav">
+        <a class="nav-link nav_elements" href="{% url 'home' %}">{% trans "Home" %}</a>
+    </li>
+    <li class="nav-item nav_elements">
+        <a class="nav-link nav_elements" href="{% url 'agents' %}">{% trans "Dedicated Agents" %}</a>
+    </li>
+    <li class="nav-item nav_elements">
+        <a class="nav-link nav_elements" href="{% url 'listing:listing_list' %}">{% trans "Properties" %}</a>
+    </li>
+    <li class="nav-item nav_elements">
+        <a class="nav-link nav_elements" href="{% url 'account_logout' %}">{% trans "My Estimated Home Value" %}</a>
+    </li>
+    <li class="nav-item nav_elements">
+        <a class="nav-link nav_elements" id="account_logout" href="{% url 'account_logout' %}">{% trans "Common Questions" %}</a>
+    </li>
+    <li class="nav-item nav_elements">
+        <a class="nav-link nav_elements" id="account_logout" href="{% url 'account_logout' %}">{% trans "Message or Question" %}</a>
+    </li>
+    {% if not user.is_authenticated %}
+        <li class="nav-item nav_elements">
+            <a class="nav-link nav_elements" href="{% url 'account_login' %}">{% trans "Log in" %}</a>
+        </li>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        <li class="nav-item nav_elements">
+            <a class="nav-link nav_elements" href="{% url "staff_options" %}">{% trans "Staff Options" %}</a>
+        </li>
+    {% endif %}
+</ul>
+
+<form id="accountLogOutForm" style="display: none;" action="{% url 'account_logout' %}" method="POST">
+    {% csrf_token %}
+</form>

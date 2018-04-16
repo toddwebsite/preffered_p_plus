@@ -1,0 +1,73 @@
+{% extends "homepage.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+{% load l10n %}
+{% load custom_tags %}
+
+{% block head_title %} | Listings{% endblock %}
+
+{% block body_base %}
+<main>
+    {% block body_main_content %}
+    <section class="jumbotron reg_page">
+        <div class="container info">
+            <div class="gen_info">{{ agent.user.get_full_name|title }}
+                {% if request.user == agent.user %}<a class="side_nav" href="{% url "account_settings" %}">Edit My Profile</a>
+                {% endif %}
+            </div>
+            <div class="row listing_outer">
+                <div class="col-xl-4">
+                    <span class="listing_left">
+                        <img src="{{ agent.agent_image.thumbnail.320x588 }}" class="img-responsive"/>
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <div class="listing_mid">
+                        <span>
+                            <b>{{ agent.phone_number|fix_phone }}<br />
+                            {% if agent.alt_phone_number %}{{ agent.alt_phone_number|fix_phone }}</b><br />{% endif %}
+                            <b>{{ agent.user.email }}</b><br /><br />
+                            {% if agent.linkd %}
+                                LinkedIn: <b>{{ agent.linkd }}</b><br />
+                            {% endif %}
+                            {% if agent.fb %}
+                                Facebook: <b>{{ agent.fb }}</b><br />
+                            {% endif %}
+                            {% if agent.insta %}
+                                Instagram: <b>{{ agent.insta }}</b><br />
+                            {% endif %}
+                            {% if agent.twit %}
+                                Twitter: <b>{{ agent.twit }}</b><br />
+                            {% endif %}
+                            {% if agent.snap %}
+                                Snap Chat: <b>{{ agent.snap }}</b><br />
+                            {% endif %}
+                            {% if agent.pin %}
+                                Pintrest: <b>{{ agent.pin }}</b><br />
+                            {% endif %}
+                            {% if agent.goog %}
+                                Google+: <b>{{ agent.goog }}</b><br />
+                            {% endif %}
+                            {% if agent.utube %}
+                                YouTube: <b>{{ agent.utube }}</b><br />
+                            {% endif %}
+                            {% if agent.mtup %}
+                                Meetup: <b>{{ agent.mtup }}</b><br />
+                            {% endif %}</b><br /><br />
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="listing_agent">
+                        {{ agent.bio|capfirst }}
+                    </div>
+                </div>
+            </div>
+            {% include "_phone.html" with phone_number=agent.phone_number %}
+        </div>
+    </section>
+    {% endblock %}
+    {% include "_footer.html" %}
+</main>
+{% endblock %}

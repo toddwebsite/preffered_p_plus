@@ -1,0 +1,11 @@
+{% load staticfiles %}
+
+<div class="navbar fixed-bottom basecolor">
+    <div class="container" data-toggle="collapse" data-target="#navbarSupportedContent">
+        <div class="caption pointer">More Info</div>
+        
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        {% block account_bar %}{% include "_account_bar.html" %}{% endblock %}
+    </div>
+</div>

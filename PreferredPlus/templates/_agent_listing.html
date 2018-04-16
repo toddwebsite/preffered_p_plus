@@ -1,0 +1,15 @@
+{% load l10n %}
+{% load custom_tags %}
+
+<div class="row"">
+    <div class="col-md-4">
+        <a class="nav_standard" href="{{ listing.agent.get_absolute_url }}"><img style="float: left" src="{{ listing.agent.agent_image.thumbnail.100x90 }}" class="img-responsive"/></a>
+    </div>
+    <div class="col-md-8" style="border-bottom: 1px solid #ccced1;">
+        <span style="float: left">
+        <b><a class="nav_standard" href="{{ listing.agent.get_absolute_url }}">{{ listing.agent.user.get_full_name|cap_all_words }}</a></b><br />
+        {{ listing.agent.phone_number|fix_phone }}<br />
+        {{ listing.agent.user.email }}
+        </span>
+    </div>
+</div>

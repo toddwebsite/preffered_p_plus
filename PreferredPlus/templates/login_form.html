@@ -1,0 +1,38 @@
+{% extends "homepage.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+{% load l10n %}
+{% load custom_tags %}
+
+{% load crispy_forms_tags %}
+
+{% block head_title %}{{ title }}{% endblock %}
+
+{% block body_base %}
+<main>
+    {% block body_main_content %}
+    <section class="jumbotron reg_page">
+        <div class="container info">
+            <div class="gen_info">{{ title }}</div>
+            <div class="gen_form"></div>
+                <form method="POST" action="{% url "account_login" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+                    {% csrf_token %}
+                    <div class="form-actions gen_form">
+                        {{ form|crispy }}
+                        {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                        {% endif %}
+                        <div class="form-actions">
+                            <input type="submit" class="submit_btn pointer" value="{{ button }}" />
+                            <input type="button" class="cancel_btn pointer" value="Cancel" onclick="window.history.go(-1);"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+    {% include "_footer.html" %}
+</main>
+{% endblock %}

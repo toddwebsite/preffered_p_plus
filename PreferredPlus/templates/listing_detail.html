@@ -1,0 +1,66 @@
+{% extends "homepage.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+{% load l10n %}
+{% load custom_tags %}
+
+{% block head_title %} | Listings{% endblock %}
+
+{% block body_base %}
+<main>
+    {% block body_main_content %}
+    <section class="jumbotron reg_page">
+        <div class="container info">
+            <div class="gen_info">{{ listing.name|title }}<br />
+                {% if request.user == listing.agent.user %}<a class="nav-link agent_ele" href="{% url "listing:listing_update" listing.slug %}"><i>Update Listing</i></a>
+                {% endif %}</div>
+                <div class="row listing_outer">
+                    <div class="col-xl-4">
+                        <span class="listing_left">
+                            <b>
+                            {% if listing.sold %}
+                            <span class="red_alert">Sold!</span>
+                            {% elif listing.price_reduced %}
+                            <span class="red_alert">Reduced!</span>
+                            {% elif listing.motivated %}
+                            <span class="red_alert">Motivated Seller!</span>
+                            {% else %}
+                            <span>Available!</span>
+                            {% endif %}
+                            </b><br />
+                            <img src="{{ listing.image.crop.320x188 }}" class="img-responsive"/>
+                            {% if pic_list %}
+                                <br />
+                                {% for pic in pic_list %}
+                                {{ pic.listing }}
+                                {% endfor %}
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="listing_mid">
+                            {% include "_basic_listing.html" %}
+                            <span>
+                                <br />{{ listing.elementary_sch|cap_all_words }}<br />
+                                {{ listing.middle_sch|cap_all_words }}<br />
+                                {{ listing.high_sch|cap_all_words }}<br />
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="listing_agent">
+                            {% include "_agent_listing.html" %}
+                            <div class="row">
+                              <div class="col-sm-12" style="padding-top: 6px;">{{ listing.desription|capfirst }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% include "_phone.html" with phone_number=listing.agent.phone_number %}
+        </div>
+    </section>
+    {% endblock %}
+    {% include "_footer.html" %}
+</main>
+{% endblock %}

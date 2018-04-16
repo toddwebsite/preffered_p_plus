@@ -1,0 +1,41 @@
+{% load l10n %}
+{% load custom_tags %}
+
+{% for listing in object_list %}
+    <div class="row listing_outer">
+        <div class="col-xl-4">
+            <a class="nav-link nav_elements" href="{{ listing.get_absolute_url }}">
+            <span class="listing_left">
+                <b>{{ listing.name|title }}
+                {% if listing.sold %}
+                <span class="sold">Sold!</span>
+                {% endif %}
+                </b><br />
+                <img src="{{ listing.image.crop.320x188 }}" class="img-responsive"/>
+            </span>
+            <span class="mls">MLS {{ listing.mls_number|unlocalize }}</span>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <div class="listing_mid">
+                {% include "_basic_listing.html" %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="listing_agent">
+                {% include "_agent_listing.html" %}
+                <div class="row">
+                    <div class="col-sm-12" style="padding-top: 8px;">{{ listing.desription|capfirst|truncatechars:160 }}
+                    {% if listing.desription|length >= 160 %}
+                       <br /><b><a class="nav_standard" href="{{ listing.get_absolute_url }}">More</a></b>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% empty %}
+    <div class="row listing_outer">
+        <div class="col-sm-12">No listings currently</div>
+    </div>
+{% endfor %}

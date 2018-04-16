@@ -1,0 +1,32 @@
+{% extends "homepage.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+{% load l10n %}
+{% load custom_tags %}
+
+{% load crispy_forms_tags %}
+
+{% block head_title %} | Log Out{% endblock %}
+
+{% block body_base %}
+<main>
+    {% block body_main_content %}
+    <section class="jumbotron reg_page">
+        <div class="container info">
+            <div class="gen_info">{% trans "Are you sure you want to log out?" %}</div>
+            <div class="gen_form"></div>
+                <form method="POST" action="{% url "account_logout" %}">
+                    {% csrf_token %}
+                    <div class="form-actions gen_form">
+                        <input type="submit" class="submit_btn pointer" value="Log Out" />
+                        <input type="button" class="cancel_btn pointer" value="Cancel" onclick="window.history.go(-1);"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+    {% include "_footer.html" %}
+</main>
+{% endblock %}

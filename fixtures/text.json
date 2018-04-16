@@ -1,0 +1,14 @@
+[
+    {
+        "pk": 1,
+        "model": "text.details",
+        "fields": {
+            "caption": "Let's make it happen!",
+            "bio": "We have been here since 1998 diligently serving...",
+            "alert": "We have added another Agent! Please welcome Rebecca.",
+            "phone_number": "610 444 5555",
+            "alt_phone_number": "610 333 8888",
+            "email": "sales@gmail.com"
+        }
+    }
+]

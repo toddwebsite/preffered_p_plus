@@ -1,0 +1,14 @@
+{% load l10n %}
+{% load custom_tags %}
+
+<span>
+     <b>$ {{ listing.price }}</b><br />
+     {{ listing.street|cap_all_words }}<br />
+     {{ listing.get_address|cap_all_words }}<br />
+     Built in {{ listing.built_in|unlocalize }}<br />
+     {{ listing.bedrooms }} Beds / {{ listing.bathrooms }} Baths<br />
+     {{ listing.square_feet }} Sq Ft.<br />
+     {{ listing.acres }} Acres<br />
+     {{ listing.school_district|cap_all_words }} School District<br />
+     {{ listing.county|cap_all_words }} County
+</span>

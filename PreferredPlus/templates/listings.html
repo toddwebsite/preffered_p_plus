@@ -1,0 +1,22 @@
+{% extends "homepage.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+
+{% block head_title %} | Listings{% endblock %}
+
+{% block body_base %}
+<main>
+    {% block body_main_content %}
+    <section class="jumbotron reg_page">
+        <div class="container info">
+            <div class="gen_info">Our Listings</div>
+            {% include "_listings.html" %}
+            {% include "_phone.html" with phone_number=detail.phone_number %}
+        </div>
+    </section>
+    {% endblock %}
+    {% include "_footer.html" %}
+</main>
+{% endblock %}

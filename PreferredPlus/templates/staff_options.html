@@ -1,0 +1,50 @@
+{% extends "homepage.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+{% load l10n %}
+{% load custom_tags %}
+
+{% block head_title %} | Listings{% endblock %}
+
+{% block body_base %}
+<main>
+    {% block body_main_content %}
+    <section class="jumbotron reg_page">
+        <div class="container info">
+            <div class="gen_info">Staff Options</div>
+            <div class="row listing_outer">
+            	<ul class="navbar-nav">
+                {% if request.user.is_authenticated %}
+                	<li class="nav-item agent_elements">
+		                <a class="nav-link agent_elements" href="{% url "listing:listing_create" arg=request.user %}">Create New Listing</a>
+		            </li>
+		            <li class="nav-item agent_elements">
+	                    <a class="nav-link agent_elements" href="{% url "account_settings" %}">Edit My Profile</a>
+	                </li>
+                    <li class="nav-item agent_elements">
+                        <a class="nav-link agent_elements" id="account_logout" href="{% url 'account_logout' %}">{% trans "Log out" %}</a>
+                    </li>
+	            {% else %}
+	            	<li class="nav-item agent_elements">
+	                    <a class="nav-link agent_elements" href="{% url "home" %}">Home</a>
+	                </li>
+                {% endif %}
+                {% if request.user.is_staff %}
+	                <li class="nav-item agent_elements">
+	                	<a class="nav-link agent_elements" href="{% url 'site_data' 'site_data' %}">{% trans "Update Site Data" %}</a>
+	                </li>
+                {% endif %}
+                {% if request.user.is_superuser %}
+                	<li class="nav-item agent_elements">
+	                    <a class="nav-link agent_elements" href="/backend/">{% trans "Admin" %}</a>
+	                </li>
+                {% endif %}
+	            </ul>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+    {% include "_footer.html" %}
+</main>
+{% endblock %}
